@@ -3,11 +3,14 @@ package org.androidtown.simplequiz;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -26,6 +29,9 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_MILLIS_LEFT = "keyMillisLeft";
     private static final String KEY_ANSWERED = "keyAnswered";
     private static final String KEY_QUESTION_LIST = "keyQuestionList";
+
+    ImageView imageView01;
+    Animation animation;
 
     private TextView textViewQuestion;
     private TextView textViewScore;
@@ -59,6 +65,13 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        imageView01 = findViewById(R.id.correction);
+        animation = new AlphaAnimation(0, 1);
+
+
+
+
 
         textViewQuestion = findViewById(R.id.text_view_question);
         textViewScore = findViewById(R.id.text_view_score);
@@ -190,6 +203,14 @@ public class QuizActivity extends AppCompatActivity {
         int answerNr = rbGroup.indexOfChild(rbSelected) + 1;
 
         if (answerNr == currentQuestion.getAnswerNr()) {
+
+
+            imageView01.setImageResource(R.drawable.circle);
+            imageView01.setVisibility(View.VISIBLE);
+            animation.setDuration(1000);
+            imageView01.setVisibility(View.INVISIBLE);
+            imageView01.setAnimation(animation);
+
             score++;
             textViewScore.setText("Score: " + score);
         }
